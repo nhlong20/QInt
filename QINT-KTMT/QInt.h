@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 #include <bitset>
+using namespace std;
 class QInt
 {
 private:

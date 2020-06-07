@@ -18,6 +18,30 @@ QInt::QInt(const QInt& other)
 	this->arrayBits[1] = other.arrayBits[1];
 }
 QInt::~QInt() {}
+
+bool QInt::getBit(int pos)
+{
+	long long  num = this->arrayBits[pos / 64];
+	return (num >> (pos % 64)) & 1;
+}
+void QInt::setBit(long long bit, int pos)
+{
+	if (bit == 1)
+		arrayBits[pos / 64] |= (1 << 63 - (pos % 64));
+	arrayBits[pos / 64] &= ~(1 << (63 - pos % 64));
+}
+
+
+
+
+
+
+
+
+
+
+
+//------------------------------------
 //overloading operator AND ( & )
 QInt QInt::operator&(const QInt& other)
 {
