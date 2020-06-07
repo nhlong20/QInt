@@ -22,10 +22,13 @@ void handleFile(string fiName, string foName)
 }
 
 int main() {
+<<<<<<< HEAD
 	/*string fiName, foName;
 	cin >> fiName >> foName;
 
 	handleFile(fiName, foName);*/
 
+=======
+>>>>>>> 61866498589c89ff36eba1cc050e9fc785e54be3
 	return 0;
 }
