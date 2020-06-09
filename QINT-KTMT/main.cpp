@@ -1,7 +1,7 @@
-﻿//#include "QInt.h"
+﻿#include "QInt.h"
 #include <fstream>
 #include <iostream>
-
+using namespace std;
 //// Read and write file
 //void handleFileInt() {
 //
@@ -24,5 +24,8 @@ int main(int argc, char* argv[]) {
 	cin >> fiName >> foName;
 
 	handleFile(fiName, foName);*/
-	return 0;
+	std::string str = "1001";
+	QInt a;
+	a.scanQInt("123", "10");
+
 }

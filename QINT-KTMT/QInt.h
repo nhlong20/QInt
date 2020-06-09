@@ -2,11 +2,11 @@
 #include <iostream>
 #include <bitset>
 using namespace std;
+#define N_BITS 128
 class QInt
 {
 private:
 	long long arrayBits[2];
-	int size = 2;
 public:
 	// Init QInt = 0;
 	QInt();
@@ -29,11 +29,11 @@ public:
 	static std::string hexToBin(std::string);
 	// Chuyển từ chuỗi số nguyên lớn sang chuỗi nhị phân 128 bit
 	static std::string divByTwo_String(std::string);
-	//static std::string calTwoComplement_String(std::string);
+	static std::string calTwoComplement_String(std::string);
 	void scanQInt(std::string, std::string);
 public:
-	//QInt operator=(const QInt&);
-	//QInt operator+(const QInt&);
+	QInt operator=(const QInt&);
+	QInt operator+(const QInt&);
 	//QInt operator-(const QInt&);
 	//QInt operator*(const QInt&);
 	//QInt operator/(const QInt&);

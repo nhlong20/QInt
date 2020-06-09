@@ -47,35 +47,6 @@ void QInt::twoComplementQInt() {
 }
 
 //-----------------------------------------------
-std::string QInt::decToBin(std::string str) {
-	bool isNegative = false;
-	if (str[0] == '-') {
-		isNegative = true;
-		str.erase(str.begin());
-	}
-
-	string bin;
-	int strLen = str.length();
-	int remainder;
-
-	while (str != "0") {
-		remainder = (int)(str[strLen - 1] - '0') % 2;
-		if (remainder == 1) {
-			bin.insert(bin.begin(), '1');
-		}
-		else {
-			bin.insert(bin.begin(), '0');
-		}
-		str = divByTwo_String(str);
-	}
-
-	//if (isNegative) {
-	//	// bu 2
-	//	str = QInt::calTwoComplementFromString(str);
-	//}
-
-	return str;
-}
 std::string QInt::divByTwo_String(std::string str) {
 	std::string quotient;
 	int temp = str[0] - '0';
@@ -93,6 +64,65 @@ std::string QInt::divByTwo_String(std::string str) {
 	}
 	return quotient;
 }
+std::string QInt::decToBin(std::string str) {
+	bool isNegative = false;
+	if (str[0] == '-') {
+		isNegative = true;
+		str.erase(str.begin());
+	}
+
+	//convert to Bin
+	string bin;
+	int remainder;
+
+	while (str != "") {
+		remainder = (int)(str[str.length() - 1] - '0') % 2;
+		if (remainder == 1) {
+			bin.insert(bin.begin(), '1');
+		}
+		else {
+			bin.insert(bin.begin(), '0');
+		}
+		str = QInt::divByTwo_String(str);
+	}
+	int len = bin.length();
+	if (len < N_BITS) {
+		bin.insert(0, N_BITS - len, '0');
+	}
+
+	if (isNegative) {
+		// lay Bin bu 2 cua String
+		bin = QInt::calTwoComplement_String(bin);
+	}
+	return bin;
+}
+std::string QInt::calTwoComplement_String(std::string str) {
+	//// Add zero
+	//int len = str.length();
+	//if (len < N_BITS) {
+	//	str.insert(0, N_BITS - len, '0');
+	//}
+	// Fplit bit string
+	int len = str.length();
+	while (len > 0) {
+		str[len - 1] = str[len - 1] == '1' ? '0' : '1';
+		len--;
+	}
+	// Plus str with 1
+	char Q = 0, i = N_BITS - 1;
+	string sum(N_BITS, '0');
+	string numberOne(N_BITS, '0');
+	numberOne[N_BITS- 1] = '1';
+	while (i >= 0) {
+		sum[i] = (((str[i]-'0') ^ (numberOne[i]-'0')) ^ Q) +'0';
+		if (Q == 1 && (((str[i]-'0') ^ (numberOne[i]-'0')) == 1)) Q = 1;
+		else Q = (str[i]-'0') & (numberOne[i]-'0');
+		i--;
+	}
+	return sum;
+
+
+}
 void QInt::scanQInt(std::string str, std::string base) {
 	if (base == "10") {
 		//12345678987654321234678->010110101010
@@ -103,9 +133,6 @@ void QInt::scanQInt(std::string str, std::string base) {
 		//convert 16 to bin
 		//str == QInt::hexToBin(str);
 	}
-
-	while (str.size() < 128)
-		str = '0' + str;
 
 	std::bitset<64> foo1(std::string(str.substr(0, 64)));
 	std::bitset<64> foo2(std::string(str.substr(64, 64)));
@@ -208,4 +235,24 @@ void QInt::rotateRight()
 		foo.set(63, 0); //set bit trái cùng = 0
 		this->arrayBits[0] = foo.to_ullong();
 	}
+}
+QInt QInt::operator+(const QInt& other) {
+	string thisBin = this->toBin();
+	std::bitset<64> foo1 = other.arrayBits[0];
+	std::bitset<64> foo2 = other.arrayBits[1];
+	std::string otherBin = foo1.to_string() + foo2.to_string();
+	string temp; temp.resize(128, '0');
+	char Q = 0;
+	for (int i = thisBin.length() - 1; i >= 0;i--) {
+		temp[i] = (thisBin[i] ^ otherBin[i]) ^ Q;
+		if (Q == 1 && thisBin[i] ^ otherBin[i] == 1) Q = 1;
+		else Q = (thisBin[i] & otherBin[i]);
+	}
+	return *this;
+};
+QInt QInt::operator=(const QInt& other) {
+	this->arrayBits[0] = other.arrayBits[0];
+	this->arrayBits[1] = other.arrayBits[1];
+	return *this;
+
 }
