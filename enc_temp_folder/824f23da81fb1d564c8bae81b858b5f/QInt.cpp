@@ -146,9 +146,12 @@ void QInt::scanQInt(std::string str, std::string base) {
 		//convert 16 to bin
 		str = QInt::hexToBin(str);
 	}
+	cout << str << endl;
 	if (str.length() < N_BITS) {
 		str.insert(0, N_BITS - str.length(), '0');
 	}
+	cout << str << endl;
+	cout << str.length() << endl;
 	std::bitset<64> foo1(std::string(str.substr(0, 64)));
 	std::bitset<64> foo2(std::string(str.substr(64, 64)));
 
