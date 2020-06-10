@@ -62,8 +62,11 @@ std::string QInt::toBin(){
 	std::bitset<64> foo1 = this->arrayBits[0];
 	std::bitset<64> foo2 = this->arrayBits[1];
 
-	std::string Bin = foo1.to_string() + foo2.to_string();
-	return Bin;
+	std::string bin = foo1.to_string() + foo2.to_string();
+	while (bin[0] == '0') {
+		bin.erase(bin.begin());
+	}
+	return bin;
 }
 
 std::string QInt::toDec() {

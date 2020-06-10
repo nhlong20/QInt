@@ -1,4 +1,11 @@
 #include "handleString.h"
+void addBitZero(std::string& binStr) {
+	int len = binStr.length();
+	if (len < N_BITS) {
+		binStr.insert(0, N_BITS - len, '0');
+	}
+}
+
 std::string decToBin(std::string str) {
 	bool isNegative = false;
 	if (str[0] == '-') {
@@ -20,10 +27,7 @@ std::string decToBin(std::string str) {
 		}
 		str = divByTwo_String(str);
 	}
-	int len = bin.length();
-	if (len < N_BITS) {
-		bin.insert(0, N_BITS - len, '0');
-	}
+	addBitZero(bin);
 
 	if (isNegative) {
 		// lay Bin bu 2 cua String
@@ -90,6 +94,7 @@ std::string hexToBin(std::string str)
 
 
 std::string binToDec(std::string binStr) {
+	addBitZero(binStr);
 	std::string decStr = "";
 	int len = binStr.length();
 	for (int i = len - 1; i >= 0; i--) {
@@ -221,6 +226,7 @@ std::string powString(std::string strDec, int exp) {
 }
 
 std::string binToHex(std::string binStr) {
+	addBitZero(binStr);
 	std::string hex;
 	char hexs[] = { '0','1','2','3','4','5','6','7',
 					'8','9','A','B','C','D','E','F' };
