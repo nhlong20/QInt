@@ -31,3 +31,5 @@ std::string sumTwoUDecStr(std::string, std::string);
 std::string multipleTwoDecStr(std::string, std::string);
 // Lũy thừa
 std::string powString(std::string, int);
+
+std::string binToHex(std::string);

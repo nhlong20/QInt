@@ -71,6 +71,11 @@ std::string QInt::toDec() {
 	std::string dec = binToDec(bin);
 	return dec;
 }
+std::string QInt::toHex() {
+	std::string bin = this->toBin();
+	std::string hex = binToHex(bin);
+	return hex;
+}
 
 //overloading operator AND ( & )
 QInt QInt::operator&(const QInt& other){

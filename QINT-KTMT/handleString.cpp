@@ -219,3 +219,25 @@ std::string powString(std::string strDec, int exp) {
 	}
 	return res;
 }
+
+std::string binToHex(std::string binStr) {
+	std::string hex;
+	char hexs[] = { '0','1','2','3','4','5','6','7',
+					'8','9','A','B','C','D','E','F' };
+	std::string bins[] = { "0000","0001","0010","0011","0100","0101","0110",
+		"0111","1000","1001","1010","1011","1100","1101","1110","1111" };
+	int len = binStr.length();
+
+	for (int i = 0; i < len; i+=4) {
+		for (int j = 0; j < 16; j++) {
+			if (binStr.substr(i,4) == bins[j]) {
+				hex += hexs[j];
+				break;
+			}
+		}
+	}
+	while (hex[0] == '0') {
+		hex.erase(hex.begin());
+	}
+	return hex;
+}
