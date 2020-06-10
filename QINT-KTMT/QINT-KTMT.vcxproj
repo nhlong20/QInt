@@ -139,10 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="handleString.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="QInt.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="handleString.h" />
     <ClInclude Include="QInt.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
