@@ -25,7 +25,7 @@ public:
 	std::string toHex();
 public:
 	//QInt operator=(const QInt&);
-	//QInt operator+(const QInt&);
+	QInt operator+(const QInt&);
 	//QInt operator-(const QInt&);
 	//QInt operator*(const QInt&);
 	//QInt operator/(const QInt&);

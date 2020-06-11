@@ -33,7 +33,7 @@ QInt::~QInt() {}
 void QInt::twoComplementQInt() {
 	QInt* soMot = new QInt("1");
 	*this = ~*this;
-	//*this = *this + *soMot;
+	*this = *this + *soMot;
 	delete soMot;
 }
 
@@ -154,4 +154,22 @@ void QInt::rotateRight(){
 		foo.set(63, 0); //set bit trái cùng = 0
 		this->arrayBits[0] = foo.to_ullong();
 	}
+}
+
+QInt QInt::operator+(const QInt& other) {
+	std::string thisBin = this->toBin();
+	addBitZero(thisBin);
+	std::bitset<64> foo1 = other.arrayBits[0];
+	std::bitset<64> foo2 = other.arrayBits[1];
+	std::string otherBin = foo1.to_string() + foo2.to_string();
+	addBitZero(otherBin);
+	char Q = 0, i = N_BITS - 1;
+	std::string sum(N_BITS, '0');
+	while (i >= 0) {
+		sum[i] = (((thisBin[i] - '0') ^ (otherBin[i] - '0')) ^ Q) + '0';
+		if (Q == 1 && (((thisBin[i] - '0') ^ (otherBin[i] - '0')) == 1)) Q = 1;
+		else Q = (thisBin[i] - '0') & (otherBin[i] - '0');
+		i--;
+	}
+	return sum;
 }

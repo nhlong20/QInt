@@ -94,13 +94,23 @@ std::string hexToBin(std::string str)
 
 
 std::string binToDec(std::string binStr) {
-	addBitZero(binStr);
+	std::string binTmp = binStr;
+	addBitZero(binTmp);
+	bool negative = false;
+	if (binTmp[0] == '1') {
+		negative = true;
+	}
+	if (negative) {
+		binTmp = calTwoComplement_String(binTmp);
+	}
+
 	std::string decStr = "";
-	int len = binStr.length();
+	int len = binTmp.length();
 	for (int i = len - 1; i >= 0; i--) {
-		if (binStr[i] == '1')
+		if (binTmp[i] == '1')
 			decStr = sumTwoUDecStr(decStr, powString("2", len - 1 - i));
 	}
+	if (negative) decStr = '-' + decStr;
 	return decStr;
 }
 std::string sumTwoUDecStr(std::string str1, std::string str2) {
@@ -234,9 +244,9 @@ std::string binToHex(std::string binStr) {
 		"0111","1000","1001","1010","1011","1100","1101","1110","1111" };
 	int len = binStr.length();
 
-	for (int i = 0; i < len; i+=4) {
+	for (int i = 0; i < len; i += 4) {
 		for (int j = 0; j < 16; j++) {
-			if (binStr.substr(i,4) == bins[j]) {
+			if (binStr.substr(i, 4) == bins[j]) {
 				hex += hexs[j];
 				break;
 			}

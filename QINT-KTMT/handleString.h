@@ -12,7 +12,8 @@ std::string toString(T number)
     ss << number;
     return ss.str();
 }
-
+// Thêm bit 0 cho đủ 128 bit
+void addBitZero(std::string& binStr);
 // Chuyển từ chuỗi số nguyên lớn sang chuỗi nhị phân 128 bit
 std::string decToBin(std::string);
 // Chia lấy phần nguyên của chuỗi decimal Eg: "123"/2 = "61"
